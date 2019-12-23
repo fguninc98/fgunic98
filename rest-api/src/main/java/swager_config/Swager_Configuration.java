@@ -2,7 +2,6 @@ package swager_config;
 
 import java.util.Collections;
 
-import org.apache.activemq.store.kahadb.disk.page.PageFile.MetaData;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
