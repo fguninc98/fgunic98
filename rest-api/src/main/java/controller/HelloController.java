@@ -16,6 +16,7 @@ import repository.UserRepository;
 
 @RestController
 @RequestMapping("/hello")
+// Test colab
 public class HelloController {
 	private UserRepository userRepository;
 
