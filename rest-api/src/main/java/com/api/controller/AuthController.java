@@ -2,16 +2,16 @@ package com.api.controller;
 
 import javax.validation.Valid;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.api.model.User;
 import com.api.repository.UserRepository;
 
-@Controller
+@RestController
 public class AuthController {
 	private UserRepository userRepository;
 
@@ -19,21 +19,18 @@ public class AuthController {
 		super();
 		this.userRepository = userRepository;
 	}
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String landing(){
-		return "register";
+
+	@RequestMapping("/test")
+	public User greeting(@RequestParam(value="name", defaultValue="World") String name) {
+		User test = new User();
+		test.setFirstName(name);
+		return test;
 	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(){
+
+	@PostMapping("/")
+	public String addUser(@RequestBody @Valid User user) {
+		userRepository.save(user);
 		return "login";
 	}
 
-    @PostMapping("/")
-    public String addUser(@RequestBody @Valid User user) {
-        userRepository.save(user);
-        return "login";
-    }
-	
 }
