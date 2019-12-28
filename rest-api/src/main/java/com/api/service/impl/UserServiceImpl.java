@@ -2,6 +2,7 @@ package com.api.service.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.api.dto.TokenRequestDto;
 import com.api.dto.TokenResponseDto;
@@ -17,13 +18,12 @@ import com.api.tokenService.TokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
+@Service
 public class UserServiceImpl implements UserService {
 
 	private TokenService tokenService;
 	private UserRepository userRepository;
 	private UserMapper userMapper;
-	
-	
 	
 	
 	public UserServiceImpl(TokenService tokenService, UserRepository userRepository, UserMapper userMapper) {
