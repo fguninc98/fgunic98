@@ -1,5 +1,6 @@
 package com.api.service.impl;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,26 +24,28 @@ public class UserServiceImpl implements UserService {
 
 	private TokenService tokenService;
 	private UserRepository userRepository;
-	private UserMapper userMapper;
+	private ModelMapper userMapper;
 	
 	
-	public UserServiceImpl(TokenService tokenService, UserRepository userRepository, UserMapper userMapper) {
+	public UserServiceImpl(TokenService tokenService, UserRepository userRepository) {
 		super();
 		this.tokenService = tokenService;
 		this.userRepository = userRepository;
-		this.userMapper = userMapper;
+		this.userMapper = new ModelMapper();
 	}
 
 	@Override
 	public Page<UserDto> findAll(Pageable pageeable) {
-		return userRepository.findAll(pageeable).map(userMapper::userToUserDto);
+		return userRepository.findAll(pageeable).map(userMapper::map);
 	}
 
 	@Override
 	public UserDto add(UserCreateDto userCreateDto) {
-		User user = userMapper.userCreateDtoToUser(userCreateDto);
+		//User user = userMapper.userCreateDtoToUser(userCreateDto);
+		User user = userMapper.map(userCreateDto, User.class);
 		userRepository.save(user);
-		return userMapper.userToUserDto(user);
+		//return userMapper.userToUserDto(user);
+		return userMapper.map(user, UserDto.class);
 	}
 
 	@Override
