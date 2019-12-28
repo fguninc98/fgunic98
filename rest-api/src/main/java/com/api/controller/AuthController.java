@@ -2,6 +2,8 @@ package com.api.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +30,9 @@ public class AuthController {
 	}
 
 	@PostMapping("/")
-	public String addUser(@RequestBody @Valid User user) {
+	public ResponseEntity<Object> addUser(@RequestBody @Valid User user) {
 		userRepository.save(user);
-		return "login";
+		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 
 }
