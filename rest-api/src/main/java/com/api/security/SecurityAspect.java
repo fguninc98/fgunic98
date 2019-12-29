@@ -30,7 +30,8 @@ public class SecurityAspect {
 		this.tokenService = tokenService;
 	}
 	
-	@Around("within(com.api.controllers.*)")
+	//@Around("within(com.api.controllers.*)")
+    @Around("@annotation(com.api.security.CheckSecurity)")
 	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();

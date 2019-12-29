@@ -1,15 +1,17 @@
 package com.api.service.impl;
 
-import org.modelmapper.ModelMapper;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.api.dto.TokenRequestDto;
 import com.api.dto.TokenResponseDto;
 import com.api.dto.UserCreateDto;
 import com.api.dto.UserDto;
 import com.api.exeptions.NotFoundException;
+import com.api.mapper.UserMapper;
 import com.api.model.User;
 import com.api.repository.RoleRepository;
 import com.api.repository.UserRepository;
@@ -20,36 +22,33 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	private TokenService tokenService;
 	private UserRepository userRepository;
-	private RoleRepository roleRepository;
-	private ModelMapper userMapper;
+	private UserMapper userMapper;
 	
 	
-	public UserServiceImpl(TokenService tokenService, UserRepository userRepository, RoleRepository roleRepository) {
+
+
+	public UserServiceImpl(TokenService tokenService, UserRepository userRepository, UserMapper userMapper) {
 		super();
 		this.tokenService = tokenService;
 		this.userRepository = userRepository;
-		this.roleRepository = roleRepository;
-		this.userMapper = new ModelMapper();
+		this.userMapper = userMapper;
 	}
 
 	@Override
 	public Page<UserDto> findAll(Pageable pageeable) {
-		//return (Page<UserDto>) userMapper.map(userRepository.findAll(pageeable), UserDto.class);
-		return null;
+		return userRepository.findAll(pageeable).map(userMapper::userToUserDto);
 	}
 
 	@Override
 	public UserDto add(UserCreateDto userCreateDto) {
-		//User user = userMapper.userCreateDtoToUser(userCreateDto);
-		User user = userMapper.map(userCreateDto, User.class);
-		user.setRole(roleRepository.findByName("ROLE_USER").get());
+		User user = userMapper.userCreateDtoToUser(userCreateDto);
 		userRepository.save(user);
-		//return userMapper.userToUserDto(user);
-		return userMapper.map(user, UserDto.class);
+		return userMapper.userToUserDto(user);
 	}
 
 	@Override

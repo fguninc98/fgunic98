@@ -8,46 +8,41 @@ import javax.persistence.Id;
 @Entity
 public class Role {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
-	private String description;
-	
-	public Role(String name, String description) {
-		super();
-		this.name = name;
-		this.description = description;
-	}
-	
-	public Role() {
-		
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String description;
 
-	public Long getId() {
-		return id;
-	}
+    public Role() {
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Role(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	
-	
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

@@ -5,15 +5,16 @@ public class TokenRequestDto {
 	private String username;
 	private String password;
 	
+	public TokenRequestDto() {
+		
+	}
+	
 	public TokenRequestDto(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
 	
-	public TokenRequestDto() {
-		
-	}
 
 	public String getUsername() {
 		return username;
