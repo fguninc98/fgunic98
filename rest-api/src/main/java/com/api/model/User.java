@@ -22,8 +22,6 @@ public class User {
 	private String username;
 	private String password;
 	
-	@Embedded
-	private Address address;
 	@ManyToOne(optional = false)
 	private Role role;
 	
@@ -73,14 +71,6 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public Role getRole() {

@@ -63,11 +63,5 @@ public class SecurityAspect {
         }
         //Return FORBIDDEN if user has't appropriate role for specified route
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-    
-		
-			
 	}
-	
-	
-	
 }

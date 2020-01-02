@@ -9,8 +9,6 @@ import com.api.model.User;
 import com.api.repository.RoleRepository;
 import com.api.repository.UserRepository;
 
-
-
 @Profile({"default"})
 @Component
 public class TestDataRunner implements CommandLineRunner {

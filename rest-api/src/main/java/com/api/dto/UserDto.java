@@ -7,11 +7,6 @@ public class UserDto {
 	private String firstName;
 	private String lastName;
 	private String username;
-	//dto nema password zato sto
-	//ne zelimo da salajemo password na server
-
-	
-	
 	
 	public Long getId() {
 		return id;
@@ -43,8 +38,4 @@ public class UserDto {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	
-	
-	
 }
