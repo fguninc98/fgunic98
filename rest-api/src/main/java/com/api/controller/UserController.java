@@ -11,12 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.model.User;
-import com.api.repository.UserRepository;
-import com.api.security.CheckSecurity;
 import com.api.service.UserService;
 
 
@@ -49,7 +45,6 @@ public class UserController {
                             "Default sort order is ascending. " +
                             "Multiple sort criteria are supported.")})
     @GetMapping
-    //@CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity<Page<UserDto>> getAllUsers(@RequestHeader("Authorization") String authorization,
                                                      Pageable pageable) {
 
@@ -67,21 +62,4 @@ public class UserController {
     public ResponseEntity<TokenResponseDto> loginUser(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
         return new ResponseEntity<>(userService.login(tokenRequestDto), HttpStatus.OK);
     }
-    
-	/*
-	@RequestMapping("/test")
-	public User greeting(@RequestParam(value="name", defaultValue="World") String name) {
-		User test = new User();
-		test.setFirstName(name);
-		return test;
-	}
-
-	@PostMapping("/")
-	public ResponseEntity<Object> addUser(@RequestBody @Valid User user) {
-		userRepository.save(user);
-		return new ResponseEntity<Object>(HttpStatus.OK);
-	}
-	 */
-	
-	
 }

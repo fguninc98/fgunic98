@@ -13,7 +13,6 @@ import com.api.dto.UserDto;
 import com.api.exeptions.NotFoundException;
 import com.api.mapper.UserMapper;
 import com.api.model.User;
-import com.api.repository.RoleRepository;
 import com.api.repository.UserRepository;
 import com.api.service.UserService;
 import com.api.tokenService.TokenService;
@@ -57,7 +56,7 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new NotFoundException(String.format("User with username %s and password %s not found.", tokenRequestDto.getUsername(),tokenRequestDto.getPassword())));
 		Claims claims = Jwts.claims();
 		claims.put("id",user.getId());
-		claims.put("role",user.getRole().getName());
+		claims.put("role",user.getRole());
 		return new TokenResponseDto(tokenService.generate(claims));
 	}
 }
