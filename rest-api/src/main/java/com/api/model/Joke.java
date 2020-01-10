@@ -1,4 +1,4 @@
-package com.api.mapper;
+package com.api.model;
 
 import java.util.ArrayList;
 
@@ -11,12 +11,18 @@ public class Joke {
 	 private String url;
 	 private String value;
 	 
+	 private int interval;
+	 private long LastTimeExecuted;
+	 
 	 
 	 public Joke() {}
 	 
 	 
+
+	 
+	 
 	public Joke(ArrayList<Object> categories, String created_at, String icon_url, String id, String updated_at,
-			String url, String value) {
+			String url, String value, int interval, long lastTimeExecuted) {
 		super();
 		this.categories = categories;
 		this.created_at = created_at;
@@ -25,7 +31,28 @@ public class Joke {
 		this.updated_at = updated_at;
 		this.url = url;
 		this.value = value;
+		this.interval = interval;
+		LastTimeExecuted = lastTimeExecuted;
 	}
+
+	
+	
+	public int getInterval() {
+		return interval;
+	}
+
+	public void setInterval(int interval) {
+		this.interval = interval;
+	}
+
+	public long getLastTimeExecuted() {
+		return LastTimeExecuted;
+	}
+
+	public void setLastTimeExecuted(long lastTimeExecuted) {
+		LastTimeExecuted = lastTimeExecuted;
+	}
+
 	public ArrayList<Object> getCategories() {
 		return categories;
 	}
