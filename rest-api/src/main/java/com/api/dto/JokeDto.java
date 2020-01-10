@@ -47,11 +47,11 @@ public class JokeDto{
 		this.interval = interval;
 	}
 
-	public int getLastTimeExecuted() {
+	public long getLastTimeExecuted() {
 		return LastTimeExecuted;
 	}
 
-	public void setLastTimeExecuted(int lastTimeExecuted) {
+	public void setLastTimeExecuted(long lastTimeExecuted) {
 		LastTimeExecuted = lastTimeExecuted;
 	}
 
