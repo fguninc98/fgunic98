@@ -2,13 +2,19 @@ package com.api.scheduler;
 
 import com.api.dto.JokeDto;
 import com.api.dto.JokeMail;
+import com.api.service.impl.JokeServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +38,8 @@ public class JokeScheduler {
     private ObjectMapper objectMapper;
     private String emailQueueDestination;
     private JokeMail mail;
+    private JokeServiceImpl jokeServiceImp;
+    private JokeDto jokeDto;
 
     public JokeScheduler(JmsTemplate jmsTemplate, ObjectMapper objectMapper,
                                @Value("${destination.sendEmails}") String emailQueueDestination) {
@@ -63,14 +71,25 @@ public class JokeScheduler {
     	 * zajedno sa korisnickim mailom putem nove klase koja sadrzi u sebi joke i mail.
     	 * Npr JokeMail koji u sebi sadrzi samo 2 polja: salu i mail korisnika. Onda istu klasu prihvatamo u maileru i iz nje vadimo
     	 */
-        try {
-            ResponseEntity<JokeDto> response = norisApiClient.exchange("localhost:8081/api/joke", HttpMethod.GET,null,JokeDto.class);
-			if (response.getStatusCode().equals(HttpStatus.OK))
-            	mail = new JokeMail(response.getBody().getValue(), "OVDE STAVIS KORISNIKOV MAIL!!!!!!");
-                jmsTemplate.convertAndSend(emailQueueDestination, objectMapper.writeValueAsString(mail));
-        } catch (Exception ex) {
-           ex.printStackTrace();
+    	PageRequest pageRequest = PageRequest.of(0, 5000);
+    	List<JokeDto> jokes = jokeServiceImp.findAll(pageRequest);
+    	
+    	Date d = new Date();
+    	for(JokeDto jokeDto : jokes) {
+    		if((d.getTime() - jokeDto.getLastTimeExecuted()) > jokeDto.getInterval()) {
+    	        try {
+    	            ResponseEntity<JokeDto> response = norisApiClient.exchange("localhost:8081/api/joke", HttpMethod.GET,null,JokeDto.class);
+    				if (response.getStatusCode().equals(HttpStatus.OK))
+    	            	mail = new JokeMail(response.getBody().getValue(), "OVDE STAVIS KORISNIKOV MAIL!!!!!!");
+    	                jmsTemplate.convertAndSend(emailQueueDestination, objectMapper.writeValueAsString(mail));
+    	                jokeDto.setLastTimeExecuted(d.getTime());
+    	        } catch (Exception ex) {
+    	           ex.printStackTrace();
 
-        }
+    	        }
+    		}
+    	}
+    	
+
     }
 }
