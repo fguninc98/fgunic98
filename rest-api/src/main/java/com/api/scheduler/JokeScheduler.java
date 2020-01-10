@@ -53,7 +53,7 @@ public class JokeScheduler {
      * Funkcija za periodicno cekiranje intervala za slanje korisnika
      * potrebno je izmeniti delay i rate na vrednosti manje od naseg najmanjeg moguceg intervala
      */
-    @Scheduled(initialDelay = 10000, fixedRate = 10000)
+    @Scheduled(initialDelay = 1000, fixedRate = 1000)
     public void getJoke() throws JsonProcessingException {
     	
     	//proci kroz listu usera u bazi
@@ -70,6 +70,12 @@ public class JokeScheduler {
     	 * Ovo moze da se postigne tako sto jokeDto koji fetchujemo sa api-ja posaljemo 
     	 * zajedno sa korisnickim mailom putem nove klase koja sadrzi u sebi joke i mail.
     	 * Npr JokeMail koji u sebi sadrzi samo 2 polja: salu i mail korisnika. Onda istu klasu prihvatamo u maileru i iz nje vadimo
+    	 */
+    	
+    	/*
+    	 * Komentar Gunic:
+    	 * Dodati interval pri pravljenju instance,to bi trebalo staviti na mestu
+    	 * gde ce biti povezan front ili bilo gde(ima vec seter za interval)
     	 */
     	PageRequest pageRequest = PageRequest.of(0, 5000);
     	List<JokeDto> jokes = jokeServiceImp.findAll(pageRequest);
