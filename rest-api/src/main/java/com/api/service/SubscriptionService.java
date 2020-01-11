@@ -12,4 +12,5 @@ public interface SubscriptionService {
 	
 	 List<UserSubsription> findAll(PageRequest pageRequest);
 	 UserSubsription findById(String id);
+	 UserSubsription add(UserSubsription userSubscription);
 }

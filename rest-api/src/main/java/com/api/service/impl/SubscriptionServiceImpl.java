@@ -37,4 +37,10 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 		}
 		return null;
 	}
+
+	@Override
+	public UserSubsription add(UserSubsription userSubscription) {
+		subscriptionRepository.save(userSubscription);
+		return userSubscription;
+	}
 }
