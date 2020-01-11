@@ -19,8 +19,7 @@ public class JokeDto{
 	 private String url;
 	 private String value;
 	 
-	 private int interval;
-	 private long LastTimeExecuted;
+
 	 
 	 public JokeDto() {}
 
@@ -34,28 +33,7 @@ public class JokeDto{
 		this.updated_at = updated_at;
 		this.url = url;
 		this.value = value;
-		this.interval = interval;
-		LastTimeExecuted = lastTimeExecuted;
 	}
-
-
-	public int getInterval() {
-		return interval;
-	}
-
-	public void setInterval(int interval) {
-		this.interval = interval;
-	}
-
-	public long getLastTimeExecuted() {
-		return LastTimeExecuted;
-	}
-
-	public void setLastTimeExecuted(long lastTimeExecuted) {
-		LastTimeExecuted = lastTimeExecuted;
-	}
-
-
 
 	public String getCreated_at() {
 	  return created_at;

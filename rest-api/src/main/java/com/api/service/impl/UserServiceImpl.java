@@ -42,6 +42,11 @@ public class UserServiceImpl implements UserService {
 	public Page<UserDto> findAll(Pageable pageeable) {
 		return userRepository.findAll(pageeable).map(userMapper::userToUserDto);
 	}
+	
+	public User findById(String string) {
+		if(userRepository.findById(string).isPresent()) return userRepository.findById(string).get();
+		else return null;
+	}
 
 	@Override
 	public UserDto add(UserCreateDto userCreateDto) {

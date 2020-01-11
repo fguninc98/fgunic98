@@ -8,7 +8,6 @@ public class JokeMail {
 	public JokeMail() {}
 	
 	public JokeMail(String value, String userMail) {
-		// TODO Auto-generated constructor stub
 		this.value = value;
 		this.userMail = userMail;
 	}
