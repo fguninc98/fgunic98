@@ -25,6 +25,7 @@ import com.api.dto.TokenRequestDto;
 import com.api.dto.TokenResponseDto;
 import com.api.dto.UserCreateDto;
 import com.api.dto.UserDto;
+import com.api.dto.UserSubscriptionDto;
 import com.api.model.UserSubsription;
 
 
@@ -68,7 +69,7 @@ public class UserController {
     
     @ApiOperation(value = "Register subscription")
     @PostMapping("/joke")
-    public ResponseEntity<UserDto> saveUserSubsription(@RequestBody UserSubsription userSubscription) {
-        return new ResponseEntity<>(subscriptionService.add(userSubscription), HttpStatus.CREATED);
+    public ResponseEntity<UserSubsription> saveUserSubsription(@RequestBody UserSubsription userSubscription) {
+        return new ResponseEntity<UserSubsription>(subscriptionService.add(userSubscription), HttpStatus.CREATED);
     }
 }
