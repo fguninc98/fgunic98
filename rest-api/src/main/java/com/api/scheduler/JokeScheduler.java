@@ -68,16 +68,18 @@ public class JokeScheduler {
     	Date d = new Date();
     	for(UserSubsription sub : subsrciptions) {
     		if((d.getTime() - sub.getLastTimeExecuted()) > sub.getInterval()) {
-    	        try {
-    	            ResponseEntity<JokeDto> response = norisApiClient.exchange("localhost:8081/api/joke", HttpMethod.GET,null,JokeDto.class);
-    				if (response.getStatusCode().equals(HttpStatus.OK))
-    	            	mail = new JokeMail(response.getBody().getValue(), userService.findById(sub.getUserId()).getEmail());
-    	                jmsTemplate.convertAndSend(emailQueueDestination, objectMapper.writeValueAsString(mail));
-    	                sub.setLastTimeExecuted(d.getTime());
-    	        } catch (Exception ex) {
-    	           ex.printStackTrace();
+    			if(sub.getServiceName()=="joke") {
+    				try {
+        	            ResponseEntity<JokeDto> response = norisApiClient.exchange("localhost:8081/api/joke", HttpMethod.GET,null,JokeDto.class);
+        				if (response.getStatusCode().equals(HttpStatus.OK))
+        	            	mail = new JokeMail(response.getBody().getValue(), userService.findById(sub.getUserId()).getEmail());
+        	                jmsTemplate.convertAndSend(emailQueueDestination, objectMapper.writeValueAsString(mail));
+        	                sub.setLastTimeExecuted(d.getTime());
+        	        } catch (Exception ex) {
+        	           ex.printStackTrace();
 
-    	        }
+        	        }
+    			}
     		}
     	}
     }
