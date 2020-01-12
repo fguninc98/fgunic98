@@ -68,7 +68,7 @@ public class JokeScheduler {
     	Date d = new Date();
     	for(UserSubsription sub : subsrciptions) {
     		if((d.getTime() - sub.getLastTimeExecuted()) > sub.getInterval()) {
-    			if(sub.getServiceName()=="joke") {
+    			if(sub.getServiceName().contentEquals("joke")) {
     				try {
         	            ResponseEntity<JokeDto> response = norisApiClient.exchange("localhost:8081/api/joke", HttpMethod.GET,null,JokeDto.class);
         				if (response.getStatusCode().equals(HttpStatus.OK))

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.api.model.UserSubsription;
 
 @Repository
-public interface SubscriptionRepository extends JpaRepository<UserSubsription, String>{
+public interface SubscriptionRepository extends JpaRepository<UserSubsription, Long>{
 	Page<UserSubsription> findAll(Pageable pageable);
 	Optional<UserSubsription> findById(String id);
 }
