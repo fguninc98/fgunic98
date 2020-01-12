@@ -65,4 +65,14 @@ public class UserSubsription {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 }
