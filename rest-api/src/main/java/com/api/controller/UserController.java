@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.service.SubscriptionService;
 import com.api.service.UserService;
 
 
@@ -25,7 +24,6 @@ import com.api.dto.TokenRequestDto;
 import com.api.dto.TokenResponseDto;
 import com.api.dto.UserCreateDto;
 import com.api.dto.UserDto;
-import com.api.model.UserSubsription;
 
 
 @RestController
@@ -33,7 +31,6 @@ import com.api.model.UserSubsription;
 public class UserController {
 
     private UserService userService;
-    private SubscriptionService subscriptionService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -66,9 +63,4 @@ public class UserController {
         return new ResponseEntity<>(userService.login(tokenRequestDto), HttpStatus.OK);
     }
     
-    @ApiOperation(value = "Register subscription")
-    @PostMapping("/joke")
-    public ResponseEntity<UserDto> saveUserSubsription(@RequestBody UserSubsription userSubscription) {
-        return new ResponseEntity<>(subscriptionService.add(userSubscription), HttpStatus.CREATED);
-    }
 }

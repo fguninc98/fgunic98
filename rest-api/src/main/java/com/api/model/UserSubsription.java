@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 /**
  * 
@@ -12,11 +14,12 @@ import javax.persistence.Id;
  * 
  */
 @Entity
+@Table(indexes = {@Index(columnList = "userId", unique = false)})
 public class UserSubsription {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	private String userId;
 	private String serviceName;
 	private int interval;
@@ -24,12 +27,11 @@ public class UserSubsription {
 
 	public UserSubsription() {}
 
-	public UserSubsription(String userId, String serviceName, int interval, long lastTimeExecuted) {
-		super();
+	public UserSubsription(String userId, String serviceName, int interval) {
 		this.userId = userId;
 		this.serviceName = serviceName;
 		this.interval = interval;
-		LastTimeExecuted = lastTimeExecuted;
+		LastTimeExecuted = System.currentTimeMillis();
 	}
 
 	public int getInterval() {
