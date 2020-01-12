@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.api.dto.UserSubscriptionDto;
 import com.api.model.UserSubsription;
 
 @Service

@@ -64,10 +64,4 @@ public class UserController {
     public ResponseEntity<TokenResponseDto> loginUser(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
         return new ResponseEntity<>(userService.login(tokenRequestDto), HttpStatus.OK);
     }
-    
-    @ApiOperation(value = "Register subscription")
-    @PostMapping("/joke")
-    public ResponseEntity<UserSubsription> saveUserSubsription(@RequestBody UserSubsription userSubscription) {
-        return new ResponseEntity<UserSubsription>(subscriptionService.add(userSubscription), HttpStatus.CREATED);
-    }
 }

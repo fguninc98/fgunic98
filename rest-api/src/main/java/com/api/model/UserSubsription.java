@@ -14,12 +14,12 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(indexes = {@Index(columnList = "userId", unique = false)})
+@Table(indexes = {@Index(columnList = "userId", unique = false)}, name = "USER_SUBSRIPTION")
 public class UserSubsription {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	private String userId;
 	private String serviceName;
 	private int interval;
@@ -73,6 +73,5 @@ public class UserSubsription {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
 	
 }
